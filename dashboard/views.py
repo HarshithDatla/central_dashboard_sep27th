@@ -74,6 +74,8 @@ class SchoolDetail(generics.RetrieveUpdateDestroyAPIView):
 
         return schools
 
+    
+
 
 
 

@@ -26,6 +26,11 @@ SECRET_KEY = 'django-insecure-(stxt_f)$ql*bw-qqu3a*#1&7mgu$v)8y@y+9j=#$uz$5+of1t
 DEBUG = True
 
 ALLOWED_HOSTS = []
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+}
 
 
 # Application definition
@@ -39,10 +44,19 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'dashboard',
+    'rest_framework_api_key',
+    'api_authentication',
+    'user',
+    
+
+    
     
     
 ]
 ROOT_URLCONF = 'centralized_dashboard.urls'
+
+#Auth Model
+AUTH_USER_MODEL = "user.AuthUser"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -81,7 +95,7 @@ WSGI_APPLICATION = 'central_dashboard.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dashboard',
+        'NAME': 'central',
         'HOST': '',
         'USER': 'ihs',
         'PASSWORD': 'Harshith',
