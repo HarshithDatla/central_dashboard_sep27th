@@ -95,7 +95,7 @@ WSGI_APPLICATION = 'central_dashboard.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'central',
+        'NAME': 'dashboard_0ct04',
         'HOST': '',
         'USER': 'ihs',
         'PASSWORD': 'Harshith',
