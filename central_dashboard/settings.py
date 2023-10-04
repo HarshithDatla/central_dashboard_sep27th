@@ -25,7 +25,17 @@ SECRET_KEY = 'django-insecure-(stxt_f)$ql*bw-qqu3a*#1&7mgu$v)8y@y+9j=#$uz$5+of1t
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost",
+    "http://localhost:80",
+    "http://localhost:8080",
+    "http://localhost:8000",
+    'http://creaxiotechnologies.com',
+    'http://vbes.in',
+    "http://localhost:4200"
+]
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
