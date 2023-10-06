@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from corsheaders.defaults import default_headers
+import datetime
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,22 +26,25 @@ SECRET_KEY = 'django-insecure-(stxt_f)$ql*bw-qqu3a*#1&7mgu$v)8y@y+9j=#$uz$5+of1t
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+import os 
 
 ALLOWED_HOSTS = ['*']
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost",
-    "http://localhost:80",
-    "http://localhost:8080",
-    "http://localhost:8000",
-    'http://creaxiotechnologies.com',
-    'http://vbes.in',
-    "http://localhost:4200"
-]
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
+        'api_authentication.authentication.APITokenAuthentication',
     ],
+    
+   
+}
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=7 ),
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=7),
+    'AUTH_HEADER_TYPES': 'eCampus',
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': False,
+    'UPDATE_LAST_LOGIN': True,
 }
 
 
@@ -52,17 +57,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'rest_framework',
     'dashboard',
     'rest_framework_api_key',
     'api_authentication',
     'user',
-    
-
-    
-    
-    
 ]
+
 ROOT_URLCONF = 'centralized_dashboard.urls'
 
 #Auth Model
@@ -71,11 +73,14 @@ AUTH_USER_MODEL = "user.AuthUser"
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'central_dashboard.urls'
@@ -95,8 +100,15 @@ TEMPLATES = [
         },
     },
 ]
-
+API_KEY_CUSTOM_HEADER = "HTTP_X_API_KEY"
 WSGI_APPLICATION = 'central_dashboard.wsgi.application'
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    'x-api-key',
+    'Content-Type',
+    'Content-Disposition',
+    'Access-Control-Allow-Origin',
+    'featureperm',
+]
 
 
 # Database
@@ -157,3 +169,20 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CSRF_TRUSTED_ORIGINS = ["http://localhost:4200"]
+
+CORS_ORIGIN_ALLOW_ALL = True
+ 
+CORS_ALLOWED_ORIGINS = (
+    "http://localhost",
+    "http://localhost:80",
+    "http://localhost:8080",
+    "http://localhost:8000",
+    'http://creaxiotechnologies.com',
+    'http://vbes.in',
+    "http://localhost:4200",
+    "http://127.0.0.1:8000",
+    
+)
+
