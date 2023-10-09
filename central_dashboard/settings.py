@@ -32,9 +32,20 @@ ALLOWED_HOSTS = ['*']
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
+        
         'api_authentication.authentication.APITokenAuthentication',
     ],
+     'DEFAULT_PERMISSION_CLASSES': [
+        'api_authentication.permissions.HasOrganizationAPIKey',
+        'rest_framework.permissions.IsAuthenticated',
+        
+    ],
+    'DEFAULT_RENDERER_CLASSES':[
+        'base.renderers.APIJSONRenderer',
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+    
+    'EXCEPTION_HANDLER': 'base.handlers.ecampus_exception_handler'
     
    
 }
@@ -63,6 +74,7 @@ INSTALLED_APPS = [
     'rest_framework_api_key',
     'api_authentication',
     'user',
+    'base'
 ]
 
 ROOT_URLCONF = 'centralized_dashboard.urls'
@@ -76,7 +88,6 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -185,4 +196,4 @@ CORS_ALLOWED_ORIGINS = (
     "http://127.0.0.1:8000",
     
 )
-
+SUCCESS_CODES = (200, 201, 202, 204, 206, )
