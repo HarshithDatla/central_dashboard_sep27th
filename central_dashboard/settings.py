@@ -128,7 +128,7 @@ CORS_ALLOW_HEADERS = list(default_headers) + [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dashboard_0ct04',
+        'NAME': 'server_dashboard',
         'HOST': '',
         'USER': 'ihs',
         'PASSWORD': 'Harshith',
