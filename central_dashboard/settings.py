@@ -34,6 +34,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         
         'api_authentication.authentication.APITokenAuthentication',
+        
     ],
      'DEFAULT_PERMISSION_CLASSES': [
         'api_authentication.permissions.HasOrganizationAPIKey',
